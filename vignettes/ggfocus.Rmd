@@ -1,0 +1,95 @@
+---
+title: "ggfocus -- for focus, people!"
+author: "Dylan Stark"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{ggfocus -- for focus, people!}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r header,echo=FALSE,results='hide'}
+library("knitr")
+opts_chunk$set(fig.width = 5.25, fig.height = 3.75, cache=FALSE)
+```
+
+```{r}
+library(ggplot2)
+```
+
+Sometimes you just want to emphasize some aspect of the data in your plot, such as the lack of low-depth fair diamonds.
+
+```{r}
+ggplot(diamonds, aes(depth, colour = cut)) +
+  geom_density() +
+  xlim(55, 70)
+```
+
+As above, the plot doesn't necessarily need to be very "busy" to benefit from some focus.
+Though, if it were busier, like the following 2-D density plot, the focus is more of a requirement in order to highlight an underlying trend.
+
+```{r}
+set.seed(4393)
+dsmall <- diamonds[sample(nrow(diamonds), 1000), ]
+ggplot(dsmall, aes(x, y)) +
+  geom_density_2d(aes(colour = cut))
+```
+
+```{r}
+ggplot(dsmall, aes(x, y)) +
+  geom_density_2d(aes(colour = cut))
+```
+
+```{r}
+# http://ggplot2.tidyverse.org/reference/geom_boxplot.html
+p <- ggplot(mpg, aes(class, hwy))
+p + geom_boxplot(aes(colour = drv))
+```
+
+
+
+
+```{r}
+	# http://ggplot2.tidyverse.org/reference/geom_jitter.html
+	p + geom_jitter(aes(colour = class))
+```
+
+```{r}
+# http://ggplot2.tidyverse.org/reference/geom_path.html
+	ggplot(economics_long, aes(date, value01, colour = variable)) +
+  	  geom_line()
+```
+
+```{r}
+# http://ggplot2.tidyverse.org/reference/geom_smooth.html
+	ggplot(mpg, aes(displ, hwy, colour = class)) +
+  	  geom_point() +
+  	  geom_smooth(se = FALSE, method = "lm")
+```
+
+```{r}
+# http://ggplot2.tidyverse.org/reference/geom_text.html
+p <- ggplot(mtcars, aes(wt, mpg, label = rownames(mtcars)))
+p + geom_text(aes(colour = factor(cyl)))
+```
+
+Here we look at points and focus on only clarity of SI2.
+
+```{r}
+# http://ggplot2.tidyverse.org/reference/scale_brewer.html
+	dsamp <- diamonds[sample(nrow(diamonds), 1000), ]
+	(d <- ggplot(dsamp, aes(carat, price)) +
+	  geom_point(aes(colour = clarity)))
+```
+
+Note that this doesn't necessarily help with overplotting.
+The focus scale works also with tuning opacity and, as you'd expect, with jittering.
+
+```{r}
+# http://ggplot2.tidyverse.org/reference/scale_hue.html
+	dsamp <- diamonds[sample(nrow(diamonds), 1000), ]
+	d <- ggplot(dsamp, aes(carat, price, colour = clarity))
+	d + geom_point(alpha = 0.2)
+```
+
