@@ -16,6 +16,7 @@ opts_chunk$set(fig.width = 5.25, fig.height = 3.75, cache=FALSE)
 
 ```{r}
 library(ggplot2)
+library(ggfocus)
 ```
 
 Sometimes you just want to emphasize some aspect of the data in your plot, such as the lack of low-depth fair diamonds.
@@ -24,6 +25,13 @@ Sometimes you just want to emphasize some aspect of the data in your plot, such 
 ggplot(diamonds, aes(depth, colour = cut)) +
   geom_density() +
   xlim(55, 70)
+```
+
+```{r}
+ggplot(diamonds, aes(depth, colour = cut)) +
+  geom_density() +
+  xlim(55, 70) +
+  scale_colour_focus(1)
 ```
 
 As above, the plot doesn't necessarily need to be very "busy" to benefit from some focus.
@@ -38,7 +46,15 @@ ggplot(dsmall, aes(x, y)) +
 
 ```{r}
 ggplot(dsmall, aes(x, y)) +
-  geom_density_2d(aes(colour = cut))
+  geom_density_2d(aes(colour = cut)) +
+  scale_colour_focus(1)
+```
+
+```{r}
+ggplot(dsmall, aes(x, y)) +
+  geom_density_2d(aes(colour = cut)) +
+  scale_colour_focus(1) +
+  facet_wrap(~ cut)
 ```
 
 ```{r}
@@ -47,6 +63,10 @@ p <- ggplot(mpg, aes(class, hwy))
 p + geom_boxplot(aes(colour = drv))
 ```
 
+```{r}
+p + geom_boxplot(aes(colour = drv)) +
+  scale_colour_focus(2)
+```
 
 
 
@@ -56,9 +76,22 @@ p + geom_boxplot(aes(colour = drv))
 ```
 
 ```{r}
+	# http://ggplot2.tidyverse.org/reference/geom_jitter.html
+	p + geom_jitter(aes(colour = class)) +
+  scale_colour_focus(5)
+```
+
+```{r}
 # http://ggplot2.tidyverse.org/reference/geom_path.html
 	ggplot(economics_long, aes(date, value01, colour = variable)) +
   	  geom_line()
+```
+
+```{r}
+# http://ggplot2.tidyverse.org/reference/geom_path.html
+	ggplot(economics_long, aes(date, value01, colour = variable)) +
+  	  geom_line() +
+  scale_colour_focus(3)
 ```
 
 ```{r}

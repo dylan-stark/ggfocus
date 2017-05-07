@@ -16,3 +16,5 @@ Suggests: knitr,
     rmarkdown,
     testthat
 VignetteBuilder: knitr
+Imports: ggplot2,
+    scales
