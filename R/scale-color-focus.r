@@ -1,13 +1,27 @@
-scale_colour_focus <- function(pos, ...) {
-  if (!is.numeric(pos) || length(pos) != 1) {
+#' Highlighted color scale.
+#'
+#' This scale blends the \code{\link[scales]{hue_pal}} and \code{\link[scales]{grey_pal}} palettes from the scales package. The
+#' "highlighted" elements, selected by position, uses the hue palette; the
+#' other elements use the grey pallete.
+#'
+#' @param pos Position in color scale to focus on
+#' @param ... Other arguments passed on to \code{\link{ggplot2::discrete_scale}}
+#'   to control name, limits, breaks, labels and so forth.
+#' @inheritParams scales::hue_pal
+#' @inheritParams scales::grey_pal
+#' @rdname scale_focus
+#' @family colour scales
+#' @export
+scale_colour_focus <- function(pos, ..., h = c(0, 360) + 15, c = 100,
+                               l = 65, h.start = 0, direction = 1,
+                               start = 0.2, end = 0.8, na.value = "red") {
+  if (!is.numeric(pos) || length(pos) != 1 || pos <= 0) {
     stop("palette position must be a positive integer")
   }
 
-  na.value <- "red"
-
   focus_pal <- function(pos) {
-    hue_pal <- scales::hue_pal()
-    grey_pal <- scales::grey_pal()
+    hue_pal <- scales::hue_pal(h, c, l, h.start, direction)
+    grey_pal <- scales::grey_pal(start, end)
 
     function(n) {
       hues <- hue_pal(n)
@@ -22,4 +36,7 @@ scale_colour_focus <- function(pos, ...) {
   ggplot2::discrete_scale("colour", "focus", focus_pal(pos), na.value = na.value, ...)
 }
 
+#' @rdname scale_focus
+#' @export
+#' @usage NULL
 scale_color_focus <- scale_colour_focus
