@@ -12,7 +12,7 @@ scale_colour_focus(pos, ..., h = c(0, 360) + 15, c = 100, l = 65,
 \arguments{
 \item{pos}{Position in color scale to focus on}
 
-\item{...}{Other arguments passed on to \code{\link{ggplot2::discrete_scale}}
+\item{...}{Other arguments passed on to \code{\link[ggplot2]{discrete_scale}}
 to control name, limits, breaks, labels and so forth.}
 
 \item{h}{range of hues to use, in [0, 360]}
@@ -30,6 +30,8 @@ combination of hue and luminance.}
 \item{start}{gray value at low end of palette}
 
 \item{end}{gray value at high end of palette}
+
+\item{na.value}{Colour to use for missing values}
 }
 \description{
 This scale blends the \code{\link[scales]{hue_pal}} and \code{\link[scales]{grey_pal}} palettes from the scales package. The

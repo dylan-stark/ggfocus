@@ -5,8 +5,9 @@
 #' other elements use the grey pallete.
 #'
 #' @param pos Position in color scale to focus on
-#' @param ... Other arguments passed on to \code{\link{ggplot2::discrete_scale}}
+#' @param ... Other arguments passed on to \code{\link[ggplot2]{discrete_scale}}
 #'   to control name, limits, breaks, labels and so forth.
+#' @param na.value Colour to use for missing values
 #' @inheritParams scales::hue_pal
 #' @inheritParams scales::grey_pal
 #' @rdname scale_focus
