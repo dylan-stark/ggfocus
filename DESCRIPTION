@@ -1,7 +1,7 @@
 Package: ggfocus
 Type: Package
 Title: Focus, People!
-Version: 0.0.0.9000
+Version: 0.0.1
 Authors@R: person("Dylan", "Stark", email = "dylan.stark@gmail.com",
     role = c("aut", "cre"))
 Description: Scales for emphasizing features in the data. You pick the color
