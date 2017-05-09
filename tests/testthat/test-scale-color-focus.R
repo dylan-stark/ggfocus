@@ -10,7 +10,6 @@ test_that("argument must be positive integer", {
   expect_error(scale_color_focus(c("one", "two")), err_msg)
   expect_error(scale_color_focus(TRUE), err_msg)
   expect_error(scale_color_focus(list(1)), err_msg)
-  expect_error(scale_color_focus(c(1, 2)), err_msg)
   expect_error(scale_color_focus(0), err_msg)
   expect_error(scale_color_focus(-1), err_msg)
 })

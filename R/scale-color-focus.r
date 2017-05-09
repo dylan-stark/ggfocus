@@ -1,10 +1,10 @@
 #' Highlighted color scale.
 #'
 #' This scale blends the \code{\link[scales]{hue_pal}} and \code{\link[scales]{grey_pal}} palettes from the scales package. The
-#' "highlighted" elements, selected by position, uses the hue palette; the
+#' "highlighted" elements, selected by position, use the hue palette; the
 #' other elements use the grey pallete.
 #'
-#' @param pos Position in color scale to focus on
+#' @param pos One or more positions in color scale to focus on
 #' @param ... Other arguments passed on to \code{\link[ggplot2]{discrete_scale}}
 #'   to control name, limits, breaks, labels and so forth.
 #' @param na.value Colour to use for missing values
@@ -16,7 +16,7 @@
 scale_colour_focus <- function(pos, ..., h = c(0, 360) + 15, c = 100,
                                l = 65, h.start = 0, direction = 1,
                                start = 0.2, end = 0.8, na.value = "red") {
-  if (!is.numeric(pos) || length(pos) != 1 || pos <= 0) {
+  if (!is.numeric(pos) || pos <= 0) {
     stop("palette position must be a positive integer")
   }
 
