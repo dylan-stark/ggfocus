@@ -5,7 +5,7 @@ Version: 0.0.1.9000
 Authors@R: person("Dylan", "Stark", email = "dylan.stark@gmail.com",
     role = c("aut", "cre"))
 Description: Scales for emphasizing features in the data. You pick the color
-    palette position to keep and all other colors are recast to grayscale.
+    palette position to keep and all other colors are recast to gray scale.
 URL: https://github.com/dylan-stark/ggfocus
 BugReports: https://github.com/dylan-stark/ggfocus/issues
 License: MIT + file LICENSE

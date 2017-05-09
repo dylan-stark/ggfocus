@@ -10,7 +10,7 @@ scale_colour_focus(pos, ..., h = c(0, 360) + 15, c = 100, l = 65,
   na.value = "red")
 }
 \arguments{
-\item{pos}{Position in color scale to focus on}
+\item{pos}{One or more positions in color scale to focus on}
 
 \item{...}{Other arguments passed on to \code{\link[ggplot2]{discrete_scale}}
 to control name, limits, breaks, labels and so forth.}
@@ -35,7 +35,7 @@ combination of hue and luminance.}
 }
 \description{
 This scale blends the \code{\link[scales]{hue_pal}} and \code{\link[scales]{grey_pal}} palettes from the scales package. The
-"highlighted" elements, selected by position, uses the hue palette; the
+"highlighted" elements, selected by position, use the hue palette; the
 other elements use the grey pallete.
 }
 

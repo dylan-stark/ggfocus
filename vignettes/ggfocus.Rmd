@@ -33,6 +33,11 @@ ggplot(diamonds, aes(depth, colour = cut)) +
   geom_density() +
   xlim(55, 70) +
   scale_colour_focus(1)
+
+ggplot(diamonds, aes(depth, colour = cut)) +
+  geom_density() +
+  xlim(55, 70) +
+  scale_colour_focus(c(1,5))
 ```
 
 As above, the plot doesn't necessarily need to be very "busy" to benefit from some focus.
