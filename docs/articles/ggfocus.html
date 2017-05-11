@@ -66,79 +66,48 @@
     
     
 <div class="contents">
-<p>Sometimes you just want to emphasize some aspect of the data in your plot. The ggfocus package provides a simple scale to help focus attention where you want it. The package is an extension of <a href="http://ggplot2.tidyverse.org">ggplot2</a> that adds a single <code><a href="../reference/scale_focus.html">scale_colour_focus()</a></code> call. The following examples demonstrate what you can do with this simple method.</p>
+<p>Sometimes you just want to emphasize some aspect of the data in your plot. The ggfocus package provides a simple scale to help focus attention where you want it. The package is an extension of <a href="http://ggplot2.tidyverse.org">ggplot2</a> that adds a single <code><a href="../reference/scale_focus.html">scale_colour_focus()</a></code> call.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(ggplot2)
 <span class="kw">library</span>(ggfocus)</code></pre></div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(diamonds, <span class="kw">aes</span>(depth, <span class="dt">colour =</span> cut)) +
+<p>The following examples demonstrate what you can do with this simple method. As you might expect, this approach works with any type of geom and stat when plots use the color aesthetic, and it works when faceting, too.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">p &lt;-<span class="st"> </span><span class="kw">ggplot</span>(diamonds, <span class="kw">aes</span>(depth, <span class="dt">colour =</span> cut)) +
 <span class="st">  </span><span class="kw">geom_density</span>() +
-<span class="st">  </span><span class="kw">xlim</span>(<span class="dv">55</span>, <span class="dv">70</span>)</code></pre></div>
+<span class="st">  </span><span class="kw">xlim</span>(<span class="dv">55</span>, <span class="dv">70</span>)
+
+p</code></pre></div>
 <pre><code>## Warning: Removed 45 rows containing non-finite values (stat_density).</code></pre>
 <p><img src="ggfocus_files/figure-html/unnamed-chunk-2-1.png" width="504"></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(diamonds, <span class="kw">aes</span>(depth, <span class="dt">colour =</span> cut)) +
-<span class="st">  </span><span class="kw">geom_density</span>() +
-<span class="st">  </span><span class="kw">xlim</span>(<span class="dv">55</span>, <span class="dv">70</span>) +
-<span class="st">  </span><span class="kw"><a href="../reference/scale_focus.html">scale_colour_focus</a></span>(<span class="dv">1</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">p +<span class="st"> </span><span class="kw"><a href="../reference/scale_focus.html">scale_colour_focus</a></span>(<span class="dv">1</span>)</code></pre></div>
 <pre><code>## Warning: Removed 45 rows containing non-finite values (stat_density).</code></pre>
 <p><img src="ggfocus_files/figure-html/unnamed-chunk-2-2.png" width="504"></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(diamonds, <span class="kw">aes</span>(depth, <span class="dt">colour =</span> cut)) +
-<span class="st">  </span><span class="kw">geom_density</span>() +
-<span class="st">  </span><span class="kw">xlim</span>(<span class="dv">55</span>, <span class="dv">70</span>) +
-<span class="st">  </span><span class="kw"><a href="../reference/scale_focus.html">scale_colour_focus</a></span>(<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">5</span>))</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">p +<span class="st"> </span><span class="kw"><a href="../reference/scale_focus.html">scale_colour_focus</a></span>(<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">5</span>))</code></pre></div>
 <pre><code>## Warning: Removed 45 rows containing non-finite values (stat_density).</code></pre>
 <p><img src="ggfocus_files/figure-html/unnamed-chunk-2-3.png" width="504"></p>
-<p>As above, the plot doesn’t necessarily need to be very “busy” to benefit from some focus.</p>
-<p>If the plot is too busy, like the following 2-D density plot, focusing on a single value doesn’t help too much. However, tweaking slightly to use small multiples, we see that focus is actually kind of nice for highlighting a particular facet panel.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">4393</span>)
 dsmall &lt;-<span class="st"> </span>diamonds[<span class="kw">sample</span>(<span class="kw">nrow</span>(diamonds), <span class="dv">1000</span>), ]
+
 <span class="kw">ggplot</span>(dsmall, <span class="kw">aes</span>(x, y)) +
-<span class="st">  </span><span class="kw">geom_density_2d</span>(<span class="kw">aes</span>(<span class="dt">colour =</span> cut))</code></pre></div>
-<p><img src="ggfocus_files/figure-html/unnamed-chunk-3-1.png" width="504"></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(dsmall, <span class="kw">aes</span>(x, y)) +
 <span class="st">  </span><span class="kw">geom_density_2d</span>(<span class="kw">aes</span>(<span class="dt">colour =</span> cut)) +
-<span class="st">  </span><span class="kw"><a href="../reference/scale_focus.html">scale_colour_focus</a></span>(<span class="dv">1</span>)</code></pre></div>
-<p><img src="ggfocus_files/figure-html/unnamed-chunk-3-2.png" width="504"></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(dsmall, <span class="kw">aes</span>(x, y)) +
-<span class="st">  </span><span class="kw">geom_density_2d</span>(<span class="kw">aes</span>(<span class="dt">colour =</span> cut)) +
-<span class="st">  </span><span class="kw"><a href="../reference/scale_focus.html">scale_colour_focus</a></span>(<span class="dv">1</span>) +
+<span class="st">  </span><span class="kw"><a href="../reference/scale_focus.html">scale_colour_focus</a></span>(<span class="kw">c</span>(<span class="dv">4</span>)) +
 <span class="st">  </span><span class="kw">facet_wrap</span>(~<span class="st"> </span>cut)</code></pre></div>
-<p><img src="ggfocus_files/figure-html/unnamed-chunk-3-3.png" width="504"></p>
-<p>As you might expect, this approach works with any type of geoms and stats when plots use the color aesthetic, like so:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">p1 &lt;-<span class="st"> </span><span class="kw">ggplot</span>(mpg, <span class="kw">aes</span>(class, hwy)) +
-<span class="st">  </span><span class="kw">geom_boxplot</span>(<span class="kw">aes</span>(<span class="dt">colour =</span> drv))
-
-p1</code></pre></div>
-<p><img src="ggfocus_files/figure-html/unnamed-chunk-4-1.png" width="504"></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">p1 +<span class="st"> </span><span class="kw"><a href="../reference/scale_focus.html">scale_colour_focus</a></span>(<span class="dv">2</span>)</code></pre></div>
-<p><img src="ggfocus_files/figure-html/unnamed-chunk-4-2.png" width="504"></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">p2 &lt;-<span class="st"> </span><span class="kw">ggplot</span>(mpg, <span class="kw">aes</span>(class, hwy)) +
-<span class="st">  </span><span class="kw">geom_jitter</span>(<span class="kw">aes</span>(<span class="dt">colour =</span> class))
-
-p2</code></pre></div>
-<p><img src="ggfocus_files/figure-html/unnamed-chunk-5-1.png" width="504"></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">p2 +<span class="st"> </span><span class="kw"><a href="../reference/scale_focus.html">scale_colour_focus</a></span>(<span class="dv">5</span>)</code></pre></div>
-<p><img src="ggfocus_files/figure-html/unnamed-chunk-5-2.png" width="504"></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">p3 &lt;-<span class="st"> </span><span class="kw">ggplot</span>(economics_long, <span class="kw">aes</span>(date, value01, <span class="dt">colour =</span> variable)) +
-<span class="st">  </span><span class="kw">geom_line</span>()
-
-p3</code></pre></div>
-<p><img src="ggfocus_files/figure-html/unnamed-chunk-6-1.png" width="504"></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">p3 +<span class="st"> </span><span class="kw"><a href="../reference/scale_focus.html">scale_colour_focus</a></span>(<span class="dv">3</span>)</code></pre></div>
-<p><img src="ggfocus_files/figure-html/unnamed-chunk-6-2.png" width="504"></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">p4 &lt;-<span class="st"> </span><span class="kw">ggplot</span>(mpg, <span class="kw">aes</span>(displ, hwy, <span class="dt">colour =</span> class)) +
+<p><img src="ggfocus_files/figure-html/unnamed-chunk-3-1.png" width="504"></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">p &lt;-<span class="st"> </span><span class="kw">ggplot</span>(mpg, <span class="kw">aes</span>(displ, hwy, <span class="dt">colour =</span> class)) +
 <span class="st">  </span><span class="kw">geom_point</span>() +
 <span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">se =</span> <span class="ot">FALSE</span>, <span class="dt">method =</span> <span class="st">"lm"</span>)
 
-p4</code></pre></div>
-<p><img src="ggfocus_files/figure-html/unnamed-chunk-7-1.png" width="504"></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">p4 +<span class="st"> </span><span class="kw"><a href="../reference/scale_focus.html">scale_colour_focus</a></span>(<span class="dv">5</span>)</code></pre></div>
-<p><img src="ggfocus_files/figure-html/unnamed-chunk-7-2.png" width="504"></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">p5 &lt;-<span class="st"> </span><span class="kw">ggplot</span>(mtcars, <span class="kw">aes</span>(wt, mpg, <span class="dt">label =</span> <span class="kw">rownames</span>(mtcars))) +
-<span class="st">  </span><span class="kw">geom_text</span>(<span class="kw">aes</span>(<span class="dt">colour =</span> <span class="kw">factor</span>(cyl)))
-
-p5</code></pre></div>
-<p><img src="ggfocus_files/figure-html/unnamed-chunk-8-1.png" width="504"></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">p5 +<span class="st"> </span><span class="kw"><a href="../reference/scale_focus.html">scale_colour_focus</a></span>(<span class="dv">1</span>)</code></pre></div>
-<p><img src="ggfocus_files/figure-html/unnamed-chunk-8-2.png" width="504"></p>
+p</code></pre></div>
+<p><img src="ggfocus_files/figure-html/unnamed-chunk-4-1.png" width="504"></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">p +<span class="st"> </span><span class="kw"><a href="../reference/scale_focus.html">scale_colour_focus</a></span>(<span class="dv">3</span>)</code></pre></div>
+<p><img src="ggfocus_files/figure-html/unnamed-chunk-4-2.png" width="504"></p>
+<p>At it’s core, ggfocus blends the hue and grey palettes from <a href="https://github.com/hadley/scales">scales</a>. This means that all of the arguments you can use with <a href="http://ggplot2.tidyverse.org/reference/scale_hue.html"><code>scale_colour_hue</code></a> and <a href="http://ggplot2.tidyverse.org/reference/scale_grey.html"><code>scale_colour_grey</code></a> will work with this scale. That’s useful for cleaning up the plots by, say, adjusting the background gray scale to exclude darker shades that might be mistaken for emphasis.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(economics_long, <span class="kw">aes</span>(date, value01, <span class="dt">colour =</span> variable)) +
+<span class="st">  </span><span class="kw">geom_line</span>() +
+<span class="st">  </span><span class="kw"><a href="../reference/scale_focus.html">scale_colour_focus</a></span>(<span class="dv">5</span>, <span class="dt">start =</span> <span class="fl">0.6</span>, <span class="dt">end =</span> <span class="fl">0.8</span>) +
+<span class="st">  </span><span class="kw">ggtitle</span>(<span class="st">"Unemployment totals returning to pre-recession levels"</span>) +
+<span class="st">  </span><span class="kw">labs</span>(<span class="dt">y =</span> <span class="st">""</span>, <span class="dt">x =</span> <span class="st">""</span>) +
+<span class="st">  </span><span class="kw">guides</span>(<span class="dt">colour =</span> <span class="ot">FALSE</span>) +
+<span class="st">  </span><span class="kw">theme_minimal</span>()</code></pre></div>
+<p><img src="ggfocus_files/figure-html/unnamed-chunk-5-1.png" width="504"></p>
 </div>
   </div>
 
