@@ -17,89 +17,54 @@ opts_chunk$set(fig.width = 5.25, fig.height = 3.75, cache=FALSE)
 Sometimes you just want to emphasize some aspect of the data in your plot.
 The ggfocus package provides a simple scale to help focus attention where you want it.
 The package is an extension of [ggplot2](http://ggplot2.tidyverse.org) that adds a single `scale_colour_focus()` call.
-The following examples demonstrate what you can do with this simple method.
 
 ```{r}
 library(ggplot2)
 library(ggfocus)
 ```
 
+The following examples demonstrate what you can do with this simple method.
+As you might expect, this approach works with any type of geom and stat when plots use the color aesthetic, and it works when faceting, too.
+
 ```{r}
-ggplot(diamonds, aes(depth, colour = cut)) +
+p <- ggplot(diamonds, aes(depth, colour = cut)) +
   geom_density() +
   xlim(55, 70)
 
-ggplot(diamonds, aes(depth, colour = cut)) +
-  geom_density() +
-  xlim(55, 70) +
-  scale_colour_focus(1)
-
-ggplot(diamonds, aes(depth, colour = cut)) +
-  geom_density() +
-  xlim(55, 70) +
-  scale_colour_focus(c(1,5))
+p
+p + scale_colour_focus(1)
+p + scale_colour_focus(c(1,5))
 ```
-
-As above, the plot doesn't necessarily need to be very "busy" to benefit from some focus.
-
-If the plot is too busy, like the following 2-D density plot, focusing on a single value doesn't help too much.
-However, tweaking slightly to use small multiples, we see that focus is actually kind of nice for highlighting a particular facet panel.
 
 ```{r}
 set.seed(4393)
 dsmall <- diamonds[sample(nrow(diamonds), 1000), ]
-ggplot(dsmall, aes(x, y)) +
-  geom_density_2d(aes(colour = cut))
 
 ggplot(dsmall, aes(x, y)) +
   geom_density_2d(aes(colour = cut)) +
-  scale_colour_focus(1)
-
-ggplot(dsmall, aes(x, y)) +
-  geom_density_2d(aes(colour = cut)) +
-  scale_colour_focus(1) +
+  scale_colour_focus(c(4)) +
   facet_wrap(~ cut)
 ```
 
-As you might expect, this approach works with any type of geoms and stats when plots use the color aesthetic, like so:
-
-```{r}
-p1 <- ggplot(mpg, aes(class, hwy)) +
-  geom_boxplot(aes(colour = drv))
-
-p1
-p1 + scale_colour_focus(2)
-```
-
-```{r}
-p2 <- ggplot(mpg, aes(class, hwy)) +
-  geom_jitter(aes(colour = class))
-
-p2
-p2 + scale_colour_focus(5)
-```
-
-```{r}
-p3 <- ggplot(economics_long, aes(date, value01, colour = variable)) +
-  geom_line()
-
-p3
-p3 + scale_colour_focus(3)
-```
-
-```{r}
-p4 <- ggplot(mpg, aes(displ, hwy, colour = class)) +
+```{r results="hold"}
+p <- ggplot(mpg, aes(displ, hwy, colour = class)) +
   geom_point() +
   geom_smooth(se = FALSE, method = "lm")
 
-p4
-p4 + scale_colour_focus(5)
+p
+p + scale_colour_focus(3)
 ```
 
-```{r}
-p5 <- ggplot(mtcars, aes(wt, mpg, label = rownames(mtcars))) +
-  geom_text(aes(colour = factor(cyl)))
+At it's core, ggfocus blends the hue and grey palettes from [scales](https://github.com/hadley/scales).
+This means that all of the arguments you can use with [`scale_colour_hue`](http://ggplot2.tidyverse.org/reference/scale_hue.html) and [`scale_colour_grey`](http://ggplot2.tidyverse.org/reference/scale_grey.html) will work with this scale.
+That's useful for cleaning up the plots by, say, adjusting the background gray scale to exclude darker shades that might be mistaken for emphasis.
 
-p5
-p5 + scale_colour_focus(1)
+```{r}
+ggplot(economics_long, aes(date, value01, colour = variable)) +
+  geom_line() +
+  scale_colour_focus(5, start = 0.6, end = 0.8) +
+  ggtitle("Unemployment totals returning to pre-recession levels") +
+  labs(y = "", x = "") +
+  guides(colour = FALSE) +
+  theme_minimal()
 ```
